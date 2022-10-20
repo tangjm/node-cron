@@ -228,6 +228,18 @@ describe('TimeMatcher', () => {
             let utcTime = new Date('Thu Oct 11 2018 22:00:00Z');
             assert.isTrue(matcher.match(utcTime));
         });
+        
+        it('should match with timezone Europe/London DST', () => {
+            let matcher = new TimeMatcher('0 0 17 * * *', 'Europe/London');
+            let utcTime = new Date('Thu Oct 11 2018 16:00:00Z');
+            assert.isTrue(matcher.match(utcTime));
+        });
+
+        it('should match with timezone Europe/London UTC', () => {
+            let matcher = new TimeMatcher('0 0 17 * * *', 'Europe/London');
+            let utcTime = new Date('Sun Nov 11 2018 17:00:00Z');
+            assert.isTrue(matcher.match(utcTime));
+        });
 
         it('should match with all available timezone of moment-timezone', () => {
             const allTimeZone = moment.tz.names();
